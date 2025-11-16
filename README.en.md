@@ -4,15 +4,6 @@
 
 A lightweight, fast static site directory with built-in search and support for common search engines.
 
-## Features
-
-- 🚀 Static-first — lightning-fast page loads
-- 🔍 Local search — find sites quickly
-- 🌐 Search engine integrations — Google, Bing, DuckDuckGo, etc.
-- 📁 Categorized sites — organized by category
-- 📱 Responsive — works on all screen sizes
-- ⚙️ Simple config — add sites via JSON files
-
 ## Quick Start
 
 ### Install dependencies
