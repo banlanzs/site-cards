@@ -1,0 +1,63 @@
+.category-section {
+  margin-bottom: 2rem;
+}
+
+.category-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 0.875rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.category-icon {
+  font-size: 1.125rem;
+  /* 保证图标容器有固定尺寸，避免 img 拉伸页面 */
+  width: 1.25rem;
+  height: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 当 category.icon 渲染为 <img> 时的样式 */
+.category-icon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: inline-block;
+}
+
+.category-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.sites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0.75rem;
+}
+
+@media (max-width: 768px) {
+  .sites-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.625rem;
+  }
+
+  .category-title {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sites-grid {
+    grid-template-columns: 1fr;
+  }
+}
+

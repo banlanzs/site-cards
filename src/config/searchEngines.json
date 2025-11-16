@@ -1,0 +1,32 @@
+[
+  {
+    "id": "internal",
+    "name": "站内搜索",
+    "icon": "🔍"
+  },
+  {
+    "id": "google",
+    "name": "Google",
+    "url": "https://www.google.com/search?q={query}",
+    "icon": "https://www.google.com/favicon.ico"
+  },
+  {
+    "id": "baidu",
+    "name": "百度",
+    "url": "https://www.baidu.com/s?wd={query}",
+    "icon": "https://www.baidu.com/favicon.ico"
+  },
+  {
+    "id": "bing",
+    "name": "Bing",
+    "url": "https://www.bing.com/search?q={query}",
+    "icon": "https://www.bing.com/favicon.ico"
+  },
+  {
+    "id": "duckduckgo",
+    "name": "DuckDuckGo",
+    "url": "https://duckduckgo.com/?q={query}",
+    "icon": "https://duckduckgo.com/favicon.ico"
+  }
+]
+
