@@ -98,67 +98,41 @@ export default function SearchBar({ searchQuery, onSearchChange, allSites }: Sea
             onChange={(e) => onSearchChange(e.target.value)}
             autoFocus
           />
-          <div className="search-engine-selector" ref={dropdownRef}>
-            <button
-              type="button"
-              className="engine-select-btn"
-              onClick={() => setShowDropdown(!showDropdown)}
-            >
-              {selectedEngine.icon && selectedEngine.id !== 'internal' ? (
-                <img
-                  src={selectedEngine.icon}
-                  alt={selectedEngine.name}
-                  className="engine-icon"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement
-                    target.style.display = 'none'
-                  }}
-                />
-              ) : (
-                <span className="engine-icon-text">{selectedEngine.icon || '🔍'}</span>
-              )}
-              <span className="engine-name">{selectedEngine.name}</span>
-              <svg
-                className={`dropdown-arrow ${showDropdown ? 'open' : ''}`}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </button>
-            {showDropdown && (
-              <div className="engine-dropdown">
-                {searchEngines.map((engine) => (
-                  <button
-                    key={engine.id}
-                    type="button"
-                    className={`engine-option ${selectedEngine.id === engine.id ? 'active' : ''}`}
-                    onClick={() => handleEngineSelect(engine as SearchEngine)}
-                  >
-                    {engine.icon && engine.id !== 'internal' ? (
-                      <img
-                        src={engine.icon}
-                        alt={engine.name}
-                        className="engine-option-icon"
-                        onError={(e) => {
-                          const target = e.target as HTMLImageElement
-                          target.style.display = 'none'
-                        }}
-                      />
-                    ) : (
-                      <span className="engine-option-icon-text">{engine.icon || '🔍'}</span>
-                    )}
-                    <span>{engine.name}</span>
-                  </button>
-                ))}
-              </div>
-            )}
+          <div className="search-engine-selector" ref={dropdownRef}>
+            <button
+              type="button"
+              className="engine-select-btn"
+              onClick={() => setShowDropdown(!showDropdown)}
+            >
+              <span className="engine-name">{selectedEngine.name}</span>
+              <svg
+                className={`dropdown-arrow ${showDropdown ? 'open' : ''}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
+            {showDropdown && (
+              <div className="engine-dropdown">
+                {searchEngines.map((engine) => (
+                  <button
+                    key={engine.id}
+                    type="button"
+                    className={`engine-option ${selectedEngine.id === engine.id ? 'active' : ''}`}
+                    onClick={() => handleEngineSelect(engine as SearchEngine)}
+                  >
+                    <span>{engine.name}</span>
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
           <button type="submit" className="search-button" aria-label="搜索">
             <svg
