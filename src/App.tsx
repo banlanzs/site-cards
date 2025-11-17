@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { Category } from './types'
 import siteConfig from './config/sites.json'
 import SearchBar from './components/SearchBar'
@@ -9,6 +9,20 @@ import './App.css'
 function App() {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+
+  // 控制body滚动
+  useEffect(() => {
+    if (isSidebarOpen) {
+      document.body.classList.add('sidebar-open')
+    } else {
+      document.body.classList.remove('sidebar-open')
+    }
+
+    return () => {
+      document.body.classList.remove('sidebar-open')
+    }
+  }, [isSidebarOpen])
 
   const categories = siteConfig.categories as Category[]
 
@@ -53,10 +67,28 @@ function App() {
         categories={categories}
         selectedCategory={selectedCategory}
         onCategorySelect={setSelectedCategory}
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
       />
 
-      <div className="app-content">
+      {isSidebarOpen && (
+        <div
+          className="sidebar-overlay"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+
+      <div className={`app-content ${isSidebarOpen ? 'blurred' : ''}`}>
         <header className="app-header">
+          <button
+            className="mobile-menu-button"
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            aria-label="Toggle sidebar"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M3 12h18M3 6h18M3 18h18" />
+            </svg>
+          </button>
           <div className="header-content">
             <h1 className="app-title">BANLAN的导航站</h1>
             <p className="app-subtitle">快速访问您喜爱的网站</p>

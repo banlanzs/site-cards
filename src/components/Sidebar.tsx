@@ -34,16 +34,26 @@ interface SidebarProps {
   categories: Category[]
   selectedCategory: string | null
   onCategorySelect: (categoryId: string | null) => void
+  isOpen: boolean
+  onClose: () => void
 }
 
-export default function Sidebar({ categories, selectedCategory, onCategorySelect }: SidebarProps) {
+export default function Sidebar({ categories, selectedCategory, onCategorySelect, isOpen, onClose }: SidebarProps) {
   return (
-    <aside className="sidebar">
+    <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
+      <button className="mobile-sidebar-close" onClick={onClose} aria-label="Close sidebar">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M18 6L6 18M6 6l12 12" />
+        </svg>
+      </button>
       <div className="sidebar-content">
         <div className="sidebar-section">
           <button
             className={`sidebar-item ${selectedCategory === null ? 'active' : ''}`}
-            onClick={() => onCategorySelect(null)}
+            onClick={() => {
+              onCategorySelect(null)
+              onClose()
+            }}
           >
             <span className="sidebar-icon"><img src="../asset/images/icon/website.png" alt="网站" /></span>
             <span className="sidebar-text">全部站点</span>
@@ -73,7 +83,10 @@ export default function Sidebar({ categories, selectedCategory, onCategorySelect
               <button
                 key={category.id}
                 className={`sidebar-item ${selectedCategory === category.id ? 'active' : ''}`}
-                onClick={() => onCategorySelect(category.id)}
+                onClick={() => {
+                  onCategorySelect(category.id)
+                  onClose()
+                }}
               >
                 <span className="sidebar-icon">
                   {iconSrc ? (
