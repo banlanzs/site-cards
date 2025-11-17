@@ -178,7 +178,7 @@
 
 @media (max-width: 768px) {
   .search-container {
-    margin: -1.5rem auto 1rem;
+    margin: 1.5rem auto;
   }
 
   .search-input-wrapper {
