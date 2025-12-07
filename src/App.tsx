@@ -10,6 +10,7 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const [showBackToTop, setShowBackToTop] = useState(false)
 
   // 控制body滚动
   useEffect(() => {
@@ -23,6 +24,19 @@ function App() {
       document.body.classList.remove('sidebar-open')
     }
   }, [isSidebarOpen])
+
+  // 监听滚动，控制返回顶部按钮展示
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowBackToTop(window.scrollY > 280)
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   const categories = siteConfig.categories as Category[]
 
@@ -115,6 +129,26 @@ function App() {
           </main>
         </div>
       </div>
+
+      <button
+        type="button"
+        className={`back-to-top ${showBackToTop ? 'visible' : ''}`}
+        onClick={scrollToTop}
+        aria-label="返回顶部"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M18 15L12 9L6 15" />
+        </svg>
+      </button>
     </div>
   )
 }
