@@ -1,7 +1,8 @@
 import { useState, useMemo, useEffect } from 'react'
 import { Category } from './types'
 import siteConfig from './config/sites.json'
-import SearchBar from './components/SearchBar'
+import searchEngines from './config/searchEngines.json'
+import SearchBar, { SearchEngine } from './components/SearchBar'
 import CategorySection from './components/CategorySection'
 import Sidebar from './components/Sidebar'
 import './App.css'
@@ -10,6 +11,7 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const [selectedEngine, setSelectedEngine] = useState<SearchEngine>(searchEngines[0] as SearchEngine)
   const [showBackToTop, setShowBackToTop] = useState(false)
 
   // 控制body滚动
@@ -40,9 +42,12 @@ function App() {
 
   const categories = siteConfig.categories as Category[]
 
-  // 过滤分类和站点
+  // 过滤分类和站点（仅在站内搜索时按输入过滤）
   const filteredCategories = useMemo(() => {
-    if (!searchQuery && !selectedCategory) {
+    const isInternalSearch = selectedEngine.id === 'internal'
+    const hasSearchQuery = searchQuery.trim().length > 0
+
+    if (!hasSearchQuery && !selectedCategory) {
       return categories
     }
 
@@ -54,7 +59,7 @@ function App() {
         return true
       })
       .map(category => {
-        if (!searchQuery) {
+        if (!hasSearchQuery || !isInternalSearch) {
           return category
         }
 
@@ -69,7 +74,7 @@ function App() {
         }
       })
       .filter(category => category.sites.length > 0)
-  }, [searchQuery, selectedCategory, categories])
+  }, [searchQuery, selectedCategory, categories, selectedEngine])
 
   const allSites = useMemo(() => {
     return categories.flatMap(category => category.sites)
@@ -114,6 +119,8 @@ function App() {
             searchQuery={searchQuery}
             onSearchChange={setSearchQuery}
             allSites={allSites}
+            selectedEngine={selectedEngine}
+            onEngineChange={setSelectedEngine}
           />
 
           <main className="app-main">

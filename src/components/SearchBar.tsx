@@ -7,17 +7,24 @@ interface SearchBarProps {
   searchQuery: string
   onSearchChange: (query: string) => void
   allSites: Site[]
+  selectedEngine: SearchEngine
+  onEngineChange: (engine: SearchEngine) => void
 }
 
-interface SearchEngine {
+export interface SearchEngine {
   id: string
   name: string
   url?: string
   icon?: string
 }
 
-export default function SearchBar({ searchQuery, onSearchChange, allSites }: SearchBarProps) {
-  const [selectedEngine, setSelectedEngine] = useState<SearchEngine>(searchEngines[0] as SearchEngine)
+export default function SearchBar({
+  searchQuery,
+  onSearchChange,
+  allSites,
+  selectedEngine,
+  onEngineChange
+}: SearchBarProps) {
   const [showDropdown, setShowDropdown] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
@@ -64,7 +71,7 @@ export default function SearchBar({ searchQuery, onSearchChange, allSites }: Sea
   }
 
   const handleEngineSelect = (engine: SearchEngine) => {
-    setSelectedEngine(engine)
+    onEngineChange(engine)
     setShowDropdown(false)
   }
 
