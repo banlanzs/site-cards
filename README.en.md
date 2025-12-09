@@ -95,5 +95,3 @@ node scripts\convertDataWithCategories.cjs
   - Simple: put images in `public/asset/...` and reference them in `sites.json` as `/asset/...` (this is the current approach and is straightforward).
   - Advanced: store images in `src/asset/...` and resolve them at runtime in components using `import.meta.glob` to obtain the built URLs (supports hashed filenames, but requires component-side resolution logic).
 - Legacy scripts `convertData.cjs` / `convertData.js` are archived in `scripts/legacy/`.
-
-If you want more strict merge rules (e.g. only overwrite empty fields), I can extend the script with CLI options to control merge behavior.

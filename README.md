@@ -128,6 +128,3 @@ node scripts\convertDataWithCategories.cjs
   - 简单方案：把图片放到 `public/asset/...`，在 `sites.json` 中使用 `/asset/...` 绝对路径（这是当前项目的做法）。
   - 进阶方案：把图片放在 `src/asset/...`，并在组件中使用 `import.meta.glob` 在运行时映射到构建后的 URL（可得到带哈希的资源路径，但需要额外的组件解析逻辑）。
 - 历史脚本：早期简化脚本 `convertData.cjs` / `convertData.js` 已归档到 `scripts/legacy/`（不会影响当前流程）。
-
-如需脚本做更细粒度的合并控制（例如只覆盖空字段、保留排序或其它自定义元数据），我可以帮你把脚本扩展成带命令行参数的版本。
-
